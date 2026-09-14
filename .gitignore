@@ -1,0 +1,27 @@
+# Dependencias
+node_modules/
+client/node_modules/
+
+# Compilacion frontend
+client/dist/
+dist/
+
+# Comprobantes de pago subidos en pruebas locales
+server/uploads/*
+!server/uploads/.gitkeep
+!server/uploads/templo_caracas.jpg
+
+# Variables de entorno
+.env
+.env.local
+
+# Logs del sistema
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Sistema operativo y editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

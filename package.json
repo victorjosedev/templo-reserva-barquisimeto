@@ -1,0 +1,23 @@
+{
+  "name": "templo",
+  "version": "1.0.0",
+  "description": "Sistema de Reserva de Puestos de Autobús para Viaje al Templo",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "build": "npm install --prefix client && npm run build --prefix client",
+    "server": "node server/index.js"
+  },
+  "keywords": [
+    "templo",
+    "reserva",
+    "autobus",
+    "estaca"
+  ],
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "multer": "^2.4.0",
+    "xlsx": "^0.18.5"
+  }
+}
