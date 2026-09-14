@@ -312,6 +312,8 @@ if (fs.existsSync(clientDist)) {
       </div>
     `);
   });
+}
+
 // Health check for Render load balancer
 app.get('/health', (req, res) => {
   res.status(200).send('OK');
