@@ -2,9 +2,8 @@
 node_modules/
 client/node_modules/
 
-# Compilacion frontend
-client/dist/
-dist/
+# Compilacion frontend (incluida para deploy garantizado en Render)
+# client/dist/
 
 # Comprobantes de pago subidos en pruebas locales
 server/uploads/*

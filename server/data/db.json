@@ -116,9 +116,9 @@
       "label": "05",
       "side": "left",
       "position": "Ventana",
-      "status": "apartado",
-      "lockedUntil": "2026-09-14T22:22:15.007Z",
-      "lockedBySession": "sess_t6fl3mchct_1789418143240",
+      "status": "disponible",
+      "lockedUntil": null,
+      "lockedBySession": null,
       "reservation": null
     },
     {

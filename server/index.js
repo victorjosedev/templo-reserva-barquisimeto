@@ -283,12 +283,34 @@ app.get('/api/admin/export', adminAuth, (req, res) => {
   }
 });
 
-// Serve frontend build in production if present
+// Serve frontend build in production
 const clientDist = path.join(__dirname, '..', 'client', 'dist');
+console.log('📁 Verificando directorio frontend:', clientDist, '| Existe:', fs.existsSync(clientDist));
+
 if (fs.existsSync(clientDist)) {
   app.use(express.static(clientDist));
-  app.use((req, res) => {
+
+  // Explicit root handler
+  app.get('/', (req, res) => {
     res.sendFile(path.join(clientDist, 'index.html'));
+  });
+
+  // SPA fallback for non-API routes
+  app.use((req, res, next) => {
+    if (req.path.startsWith('/api') || req.path.startsWith('/uploads')) {
+      return next();
+    }
+    res.sendFile(path.join(clientDist, 'index.html'));
+  });
+} else {
+  console.error('⚠️ ALERTA: No se encontró la carpeta client/dist');
+  app.get('/', (req, res) => {
+    res.send(`
+      <div style="font-family: sans-serif; text-align: center; padding: 50px; background: #0f294a; color: white;">
+        <h2>🚌 Servidor Activo (Estaca Barquisimeto)</h2>
+        <p>El backend está en línea pero la compilación del frontend aún se está procesando.</p>
+      </div>
+    `);
   });
 }
 
