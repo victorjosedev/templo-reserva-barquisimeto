@@ -5,8 +5,8 @@
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",
-    "build": "npm install --prefix client && npm run build --prefix client",
-    "postinstall": "npm run build",
+    "build": "echo 'Frontend pre-compilado listo en client/dist'",
+    "build-client": "npm install --prefix client && npm run build --prefix client",
     "server": "node server/index.js"
   },
   "keywords": [
