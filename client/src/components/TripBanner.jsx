@@ -85,9 +85,10 @@ export default function TripBanner({
                 {/* Left: Title & Purpose */}
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between md:justify-start space-x-2">
-                    <div className="inline-flex items-center space-x-1.5 bg-amber-400/20 text-amber-300 border border-amber-400/40 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider">
-                      <Sparkles className="w-3 h-3 text-amber-400" />
-                      <span>Estaca Barquisimeto • Viaje al Santo Templo</span>
+                    {/* Guided flow indicator replacing generic redundant badge */}
+                    <div className="inline-flex items-center space-x-2 bg-white/10 text-amber-300 border border-amber-400/40 px-3 py-1 rounded-full text-[11px] font-bold tracking-wide font-display">
+                      <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                      <span>Paso 1 de 2: Elige tu asiento en el mapa</span>
                     </div>
 
                     <button
@@ -99,7 +100,7 @@ export default function TripBanner({
                     </button>
                   </div>
                   
-                  <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight leading-tight">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight leading-tight font-display">
                     Reserva de Asientos en el Autobús
                   </h2>
 

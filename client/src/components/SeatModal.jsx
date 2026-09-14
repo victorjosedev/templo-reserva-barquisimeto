@@ -201,30 +201,41 @@ export default function SeatModal({
           </button>
         </div>
 
-        {/* Temporary Lock Notice & Countdown */}
-        <div className="bg-amber-500/15 border-b border-amber-500/30 px-4 py-2.5 flex items-center justify-between text-xs text-amber-950 shrink-0">
+        {/* Temporary Lock Notice with Adaptive Countdown Timer */}
+        <div className={`px-4 py-2 flex items-center justify-between text-xs border-b transition-colors ${
+          remainingSeconds > 600
+            ? 'bg-emerald-50/80 border-emerald-200 text-emerald-950'
+            : remainingSeconds > 180
+            ? 'bg-amber-50/80 border-amber-200 text-amber-950'
+            : 'bg-rose-50 border-rose-200 text-rose-950'
+        }`}>
           <div className="flex items-center space-x-1.5 font-medium">
-            <Clock className="w-3.5 h-3.5 text-amber-700 shrink-0" />
-            <span>Tiempo para completar el reporte:</span>
+            <Clock className={`w-3.5 h-3.5 ${remainingSeconds <= 180 ? 'text-rose-600 animate-pulse' : 'text-slate-600'}`} />
+            <span>Tiempo reservado para este asiento:</span>
           </div>
-          <div className="font-mono text-xs font-black text-amber-950 bg-amber-200 px-2 py-0.5 rounded-md border border-amber-300">
+          <div className={`font-mono text-xs font-black px-2.5 py-0.5 rounded-md border ${
+            remainingSeconds > 600
+              ? 'bg-emerald-100 text-emerald-950 border-emerald-300'
+              : remainingSeconds > 180
+              ? 'bg-amber-100 text-amber-950 border-amber-300'
+              : 'bg-rose-100 text-rose-950 border-rose-300 animate-pulse-slow'
+          }`}>
             {formatTime(remainingSeconds)}
           </div>
         </div>
 
         {/* Scrollable Form Body */}
-        <div className="p-4 sm:p-6 space-y-5 overflow-y-auto flex-1">
+        <div className="p-4 sm:p-6 space-y-4 overflow-y-auto flex-1">
 
-          {/* Customer Journey Step-by-step Tabs indicator */}
-          <div className="grid grid-cols-3 gap-1.5 text-center text-[11px] font-bold">
-            <div className="bg-blue-50 text-blue-900 border border-blue-200 py-1.5 px-1 rounded-xl">
-              1. Sus Datos
+          {/* Discrete progress line replacing generic SaaS pastel tabs */}
+          <div className="space-y-1.5 pb-1">
+            <div className="flex items-center justify-between text-[11px] font-medium text-slate-500 font-display">
+              <span className="text-[#0f294a] font-bold">1. Pasajero</span>
+              <span className="text-slate-600 font-semibold">2. Pago Móvil</span>
+              <span className="text-slate-600 font-semibold">3. Referencia</span>
             </div>
-            <div className="bg-amber-50 text-amber-900 border border-amber-200 py-1.5 px-1 rounded-xl">
-              2. Pago Móvil
-            </div>
-            <div className="bg-emerald-50 text-emerald-900 border border-emerald-200 py-1.5 px-1 rounded-xl">
-              3. Referencia
+            <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden border border-slate-200">
+              <div className="bg-[#0f294a] h-full rounded-full transition-all duration-500 w-full"></div>
             </div>
           </div>
 

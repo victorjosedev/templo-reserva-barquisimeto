@@ -274,28 +274,29 @@ export default function BusMap({
             {/* Bus Chassis Container */}
             <div className="w-full max-w-md bg-white rounded-[40px] p-5 sm:p-7 shadow-2xl border-4 border-slate-300 relative">
               
-              {/* Front Area: Baños (Restrooms) & Gradas (Stairs) */}
+              {/* Front Area: Baños & Escaleras (Minimalist Navy Chips) */}
               <div className="grid grid-cols-2 gap-3 mb-5">
                 
-                {/* Baño (Left) */}
-                <div className="bg-slate-100 border-2 border-slate-300 rounded-2xl p-3 flex flex-col items-center justify-center text-center select-none shadow-xs">
-                  <span className="text-2xl mb-1">🚻</span>
-                  <span className="text-xs font-black text-slate-800 uppercase">Baños</span>
-                  <span className="text-[10px] text-slate-500">Sanitario a bordo</span>
+                {/* Baño Chip */}
+                <div className="bg-[#0f294a] text-white border border-slate-700/50 rounded-2xl p-2.5 flex items-center space-x-2.5 shadow-xs select-none">
+                  <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center text-blue-200 shrink-0">
+                    <Layers className="w-3.5 h-3.5 text-blue-300" />
+                  </div>
+                  <div className="flex flex-col text-left leading-tight">
+                    <span className="text-[11px] font-bold text-white uppercase tracking-wider font-display">Sanitarios</span>
+                    <span className="text-[8px] text-blue-200">A bordo</span>
+                  </div>
                 </div>
 
-                {/* Gradas Architectural Block (Right) */}
-                <div className="bg-slate-100 border-2 border-dashed border-slate-400 rounded-2xl p-3 flex flex-col items-center justify-center text-center relative overflow-hidden select-none shadow-xs">
-                  <div className="absolute inset-x-3 inset-y-2 flex flex-col justify-between pointer-events-none opacity-35">
-                    <div className="h-1.5 bg-slate-400 rounded-xs border-b border-slate-500"></div>
-                    <div className="h-1.5 bg-slate-400 rounded-xs border-b border-slate-500"></div>
-                    <div className="h-1.5 bg-slate-400 rounded-xs border-b border-slate-500"></div>
-                    <div className="h-1.5 bg-slate-400 rounded-xs border-b border-slate-500"></div>
-                    <div className="h-1.5 bg-slate-400 rounded-xs border-b border-slate-500"></div>
+                {/* Escalera Chip */}
+                <div className="bg-[#0f294a] text-white border border-slate-700/50 rounded-2xl p-2.5 flex items-center space-x-2.5 shadow-xs select-none">
+                  <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center text-blue-200 shrink-0">
+                    <ArrowUpRight className="w-3.5 h-3.5 text-amber-300" />
                   </div>
-                  <span className="text-xl mb-0.5 relative z-10">🪜</span>
-                  <span className="text-xs font-black text-slate-800 uppercase relative z-10">Escaleras</span>
-                  <span className="text-[10px] text-slate-600 relative z-10 font-bold bg-white/85 px-1.5 py-0.5 rounded shadow-xs mt-0.5">Subida al 2do Piso</span>
+                  <div className="flex flex-col text-left leading-tight">
+                    <span className="text-[11px] font-bold text-white uppercase tracking-wider font-display">Escalera</span>
+                    <span className="text-[8px] text-blue-200">Al 2do Piso</span>
+                  </div>
                 </div>
 
               </div>
@@ -374,20 +375,13 @@ export default function BusMap({
           {renderSeat(s6)}
         </div>
         <div className="w-4 sm:w-6 text-center text-slate-200 text-[9px] font-mono select-none">·</div>
-        {/* Architectural Stairs Box (Not shaped like a seat!) */}
-        <div className="w-[104px] sm:w-[120px] h-14 sm:h-16 rounded-xl bg-slate-100 border-2 border-dashed border-slate-400 flex flex-col items-center justify-center p-1 relative overflow-hidden select-none cursor-default shadow-inner">
-          <div className="absolute inset-x-2 inset-y-1 flex flex-col justify-between pointer-events-none opacity-35">
-            <div className="h-1 bg-slate-400 rounded-xs border-b border-slate-500"></div>
-            <div className="h-1 bg-slate-400 rounded-xs border-b border-slate-500"></div>
-            <div className="h-1 bg-slate-400 rounded-xs border-b border-slate-500"></div>
-            <div className="h-1 bg-slate-400 rounded-xs border-b border-slate-500"></div>
-            <div className="h-1 bg-slate-400 rounded-xs border-b border-slate-500"></div>
+        {/* Escalera Chip 2do Piso */}
+        <div className="w-[104px] sm:w-[120px] h-14 sm:h-16 rounded-2xl bg-[#0f294a] border border-slate-700/50 text-white flex flex-col items-center justify-center p-1 relative select-none shadow-xs">
+          <div className="flex items-center space-x-1.5">
+            <ArrowUpRight className="w-3.5 h-3.5 text-amber-300" />
+            <span className="text-[10px] font-bold uppercase text-white font-display tracking-wider">Escalera</span>
           </div>
-          <div className="relative z-10 flex items-center space-x-1.5 bg-white/95 backdrop-blur-xs px-2 py-0.5 rounded-md border border-slate-300 shadow-xs">
-            <span className="text-xs">🪜</span>
-            <span className="text-[10px] font-black uppercase text-slate-700 tracking-wider">Escalera</span>
-          </div>
-          <span className="relative z-10 text-[8px] text-slate-500 font-bold uppercase mt-0.5 tracking-tight bg-white/80 px-1 rounded">Acceso 2do Piso</span>
+          <span className="text-[8px] text-blue-200 font-medium tracking-tight mt-0.5">Acceso 2do Piso</span>
         </div>
       </div>
     );
@@ -402,19 +396,13 @@ export default function BusMap({
           {renderSeat(s8)}
         </div>
         <div className="w-4 sm:w-6 text-center text-slate-200 text-[9px] font-mono select-none">·</div>
-        <div className="w-[104px] sm:w-[120px] h-14 sm:h-16 rounded-xl bg-slate-100 border-2 border-dashed border-slate-400 flex flex-col items-center justify-center p-1 relative overflow-hidden select-none cursor-default shadow-inner">
-          <div className="absolute inset-x-2 inset-y-1 flex flex-col justify-between pointer-events-none opacity-35">
-            <div className="h-1 bg-slate-400 rounded-xs border-b border-slate-500"></div>
-            <div className="h-1 bg-slate-400 rounded-xs border-b border-slate-500"></div>
-            <div className="h-1 bg-slate-400 rounded-xs border-b border-slate-500"></div>
-            <div className="h-1 bg-slate-400 rounded-xs border-b border-slate-500"></div>
-            <div className="h-1 bg-slate-400 rounded-xs border-b border-slate-500"></div>
+        {/* Escalera Chip 2do Piso */}
+        <div className="w-[104px] sm:w-[120px] h-14 sm:h-16 rounded-2xl bg-[#0f294a] border border-slate-700/50 text-white flex flex-col items-center justify-center p-1 relative select-none shadow-xs">
+          <div className="flex items-center space-x-1.5">
+            <ArrowUpRight className="w-3.5 h-3.5 text-amber-300" />
+            <span className="text-[10px] font-bold uppercase text-white font-display tracking-wider">Escalera</span>
           </div>
-          <div className="relative z-10 flex items-center space-x-1.5 bg-white/95 backdrop-blur-xs px-2 py-0.5 rounded-md border border-slate-300 shadow-xs">
-            <span className="text-xs">🪜</span>
-            <span className="text-[10px] font-black uppercase text-slate-700 tracking-wider">Escalera</span>
-          </div>
-          <span className="relative z-10 text-[8px] text-slate-500 font-bold uppercase mt-0.5 tracking-tight bg-white/80 px-1 rounded">Acceso 2do Piso</span>
+          <span className="text-[8px] text-blue-200 font-medium tracking-tight mt-0.5">Acceso 2do Piso</span>
         </div>
       </div>
     );
@@ -514,20 +502,20 @@ export default function BusMap({
     const isDimmed = selectedWardFilter !== 'ALL' && !matchesFilter;
     const wardColor = seat.ward ? WARD_COLORS[seat.ward] : null;
 
-    // Ultra-pro coach seat styling
-    let seatClasses = "relative w-12 sm:w-14 h-14 sm:h-16 rounded-2xl flex flex-col items-center justify-between p-1.5 transition-all duration-200 transform cursor-pointer select-none font-sans font-bold shadow-xs hover:shadow-md ";
+    // Ultra-pro coach seat styling with full-border state coloring
+    let seatClasses = "relative w-12 sm:w-14 h-14 sm:h-16 rounded-2xl flex flex-col items-center justify-between p-1.5 transition-all duration-200 transform cursor-pointer select-none font-sans font-bold shadow-xs active:scale-95 ";
 
     if (isSelected || isMyLock) {
-      seatClasses += "bg-purple-600 text-white ring-4 ring-purple-300 ring-offset-2 scale-105 shadow-lg shadow-purple-500/40 z-20 animate-pulse";
+      seatClasses += "bg-purple-600 text-white border-[2.5px] border-purple-400 ring-4 ring-purple-300/70 ring-offset-1 scale-105 shadow-md z-20 animate-pulse";
     } else if (viewMode === 'ward' && seat.ward && wardColor) {
-      seatClasses += `${wardColor.bg} text-white border-2 ${wardColor.border} hover:scale-105`;
+      seatClasses += `${wardColor.bg} text-white border-[2.5px] ${wardColor.border} hover:scale-105`;
     } else if (isConfirmed) {
-      seatClasses += "bg-[#0f294a] text-amber-300 border-2 border-amber-400 hover:scale-105";
+      seatClasses += "bg-[#0f294a] text-blue-100 border-[2.5px] border-[#0f294a] shadow-xs hover:scale-105";
     } else if (isPending) {
-      seatClasses += "bg-amber-100 text-amber-950 border-2 border-amber-400 hover:scale-105";
+      seatClasses += "bg-amber-50 text-amber-950 border-[2.5px] border-amber-500 hover:bg-amber-100 hover:border-amber-600 hover:scale-105 shadow-xs";
     } else {
-      // Emerald available
-      seatClasses += "bg-emerald-50 text-emerald-900 border-2 border-emerald-400 hover:bg-emerald-100 hover:border-emerald-500 hover:scale-105";
+      // Emerald available with high-contrast full-card border
+      seatClasses += "bg-emerald-50 text-emerald-950 border-[2.5px] border-emerald-500 hover:bg-emerald-100 hover:border-emerald-600 hover:scale-105 shadow-xs";
     }
 
     if (isDimmed) {
@@ -542,12 +530,12 @@ export default function BusMap({
         title={`Asiento ${seat.label} (${seat.position || 'Asiento'}) - ${seat.status.toUpperCase()} ${seat.ward ? `[${seat.ward}]` : ''}`}
       >
         {/* Seat Headrest / Cabecera con relieve */}
-        <div className="w-8 sm:w-9 h-2 rounded-t-md bg-current opacity-30 shadow-xs"></div>
+        <div className="w-8 sm:w-9 h-1.5 rounded-t-md bg-current opacity-30 shadow-xs"></div>
 
-        {/* Seat Number in High Contrast */}
+        {/* Seat Number in Sora Font Display */}
         <div className="flex flex-col items-center leading-none">
-          <span className="text-sm sm:text-base font-black tracking-tight">{seat.label}</span>
-          <span className="text-[8px] uppercase tracking-wider font-extrabold opacity-75">
+          <span className="text-sm sm:text-base font-extrabold tracking-tight font-display">{seat.label}</span>
+          <span className="text-[8px] uppercase tracking-wider font-bold opacity-75">
             {seat.position === 'Ventana' ? 'VENT' : 'PASI'}
           </span>
         </div>

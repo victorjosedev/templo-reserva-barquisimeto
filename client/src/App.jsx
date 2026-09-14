@@ -103,6 +103,7 @@ export default function App() {
       setActiveSessionLock(lockRes);
       setSelectedSeatForModal(seat);
       await loadData();
+      showNotification(`Asiento ${seat.label} apartado por 35 minutos`, 'success');
     } catch (err) {
       showNotification(err.message || 'No se pudo apartar el puesto.', 'error');
     }
@@ -144,17 +145,19 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-100 flex flex-col font-sans">
       
-      {/* Toast Notification */}
+      {/* Smooth Toast Notification */}
       {notification && (
-        <div className="fixed top-24 right-4 z-60 animate-bounce">
-          <div className={`px-4 py-3 rounded-2xl shadow-xl border text-xs font-bold ${
+        <div className="fixed top-20 right-4 sm:right-6 z-60 transition-all transform duration-300 ease-out">
+          <div className={`px-4 py-3 rounded-2xl shadow-2xl border text-xs font-bold font-display flex items-center space-x-2 ${
             notification.type === 'error'
               ? 'bg-rose-600 text-white border-rose-700'
               : notification.type === 'warning'
               ? 'bg-amber-500 text-slate-900 border-amber-600'
-              : 'bg-[#0f294a] text-amber-300 border-amber-400'
+              : notification.type === 'success'
+              ? 'bg-emerald-600 text-white border-emerald-500 shadow-emerald-900/30'
+              : 'bg-[#0f294a] text-white border-slate-700'
           }`}>
-            {notification.msg}
+            <span>{notification.msg}</span>
           </div>
         </div>
       )}

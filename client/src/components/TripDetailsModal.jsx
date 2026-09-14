@@ -175,7 +175,7 @@ export default function TripDetailsModal({ tripInfo, onClose }) {
             <div className="space-y-2 text-xs text-slate-600 bg-slate-50 p-4 rounded-2xl border border-slate-200">
               {tripInfo?.terms?.map((term, i) => (
                 <div key={i} className="flex items-start space-x-2.5">
-                  <span className="w-5 h-5 rounded-full bg-amber-100 text-amber-800 font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">
+                  <span className="w-5 h-5 rounded-full bg-slate-200 text-[#0f294a] font-black font-display text-[10px] flex items-center justify-center shrink-0 mt-0.5">
                     {i + 1}
                   </span>
                   <p className="leading-relaxed">{term}</p>

@@ -21,14 +21,26 @@ export default function ActiveSeatBar({
     <aside aria-label="Alerta de tiempo para reportar pago" className="sticky top-18 sm:top-20 z-25 bg-gradient-to-r from-purple-800 via-indigo-900 to-slate-900 text-white px-4 py-2.5 shadow-lg border-b-2 border-amber-400">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2.5">
         
-        {/* Timer display (no repeating the seat number since it's already on the map and bottom nav badge) */}
+        {/* Timer display with progressive adaptive colors */}
         <div className="flex items-center space-x-2 text-xs sm:text-sm">
-          <div className="w-8 h-8 rounded-lg bg-amber-400/20 text-amber-300 flex items-center justify-center shrink-0">
-            <Clock className="w-4 h-4 animate-spin-slow" />
+          <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
+            lockData.remainingSeconds > 600
+              ? 'bg-emerald-400/20 text-emerald-300'
+              : lockData.remainingSeconds > 180
+              ? 'bg-amber-400/20 text-amber-300'
+              : 'bg-rose-500/30 text-rose-300 animate-pulse-slow'
+          }`}>
+            <Clock className="w-4 h-4" />
           </div>
           <div className="flex items-center space-x-1.5 flex-wrap">
             <span className="text-white/90 text-xs">Tiempo para completar su pago:</span>
-            <strong className="font-mono bg-white/15 px-2 py-0.5 rounded-md text-amber-300 font-black tracking-wide text-xs sm:text-sm">
+            <strong className={`font-mono px-2.5 py-0.5 rounded-md font-black tracking-wide text-xs sm:text-sm border transition-colors ${
+              lockData.remainingSeconds > 600
+                ? 'bg-emerald-950/50 text-emerald-300 border-emerald-500/40'
+                : lockData.remainingSeconds > 180
+                ? 'bg-amber-950/50 text-amber-300 border-amber-500/40'
+                : 'bg-rose-950/70 text-rose-300 border-rose-500/50 animate-pulse-slow'
+            }`}>
               {formatTimerDetailed(lockData.remainingSeconds)}
             </strong>
           </div>
