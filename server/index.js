@@ -312,9 +312,12 @@ if (fs.existsSync(clientDist)) {
       </div>
     `);
   });
-}
+// Health check for Render load balancer
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`🚌 Servidor de Reserva Templo activo en http://localhost:${PORT}`);
+// Start server (explicit 0.0.0.0 binding for Render / cloud containers)
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚌 Servidor de Reserva Templo activo en http://0.0.0.0:${PORT}`);
 });
