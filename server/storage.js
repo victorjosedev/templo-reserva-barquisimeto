@@ -415,7 +415,18 @@ class Storage {
       ward: data.ward || 'Barrio Acarigua',
       phone: (data.phone || '').trim(),
       reference: (data.reference || '').trim(),
-      receiptUrl: receiptFile ? `/uploads/${receiptFile.filename}` : (data.existingReceiptUrl || null),
+      receiptUrl: (() => {
+        if (receiptFile) {
+          try {
+            const buf = fs.readFileSync(receiptFile.path);
+            const mime = receiptFile.mimetype || 'image/jpeg';
+            return `data:${mime};base64,${buf.toString('base64')}`;
+          } catch (e) {
+            return `/uploads/${receiptFile.filename}`;
+          }
+        }
+        return data.existingReceiptUrl || null;
+      })(),
       notes: data.notes || '',
       amountUsd: this.data.tripInfo.priceUsd,
       amountBs: Math.round(this.data.tripInfo.priceUsd * this.data.tripInfo.exchangeRate * 100) / 100,
