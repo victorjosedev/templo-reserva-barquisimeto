@@ -1,8 +1,23 @@
 const fs = require('fs');
 const path = require('path');
+const { createClient } = require('@supabase/supabase-js');
 
 const DATA_DIR = path.join(__dirname, 'data');
 const DB_FILE = path.join(DATA_DIR, 'db.json');
+
+// Supabase Cloud Persistence (Optional: activates if env vars are present)
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_KEY = process.env.SUPABASE_KEY;
+let supabase = null;
+
+if (SUPABASE_URL && SUPABASE_KEY) {
+  try {
+    supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+    console.log('⚡ Conectado con Supabase Cloud DB:', SUPABASE_URL);
+  } catch (e) {
+    console.error('Error inicializando Supabase:', e);
+  }
+}
 
 const INITIAL_TRIP_INFO = {
   title: 'Viaje de Estaca Barquisimeto al Santo Templo',
@@ -114,8 +129,78 @@ class Storage {
   constructor() {
     this.ensureDir();
     this.data = this.loadData();
+    this.initCloud();
     this.cleanExpiredLocks();
     setInterval(() => this.cleanExpiredLocks(), 15 * 1000);
+  }
+
+  getSupabaseClient() {
+    return supabase;
+  }
+
+  async initCloud() {
+    if (!supabase) return;
+    try {
+      const { data, error } = await supabase
+        .from('templo_state')
+        .select('data')
+        .eq('id', 'main')
+        .maybeSingle();
+
+      if (data && data.data && Array.isArray(data.data.seats) && data.data.seats.length === 60) {
+        console.log('☁️ Estado del autobús recuperado exitosamente desde Supabase Cloud');
+        this.data = data.data;
+      } else {
+        console.log('☁️ Sincronizando estado inicial hacia Supabase Cloud...');
+        await this.syncToCloud();
+      }
+    } catch (err) {
+      console.warn('Nota sobre sincronización Supabase (se usará local):', err.message);
+    }
+  }
+
+  async syncToCloud() {
+    if (!supabase) return;
+    try {
+      const { error } = await supabase
+        .from('templo_state')
+        .upsert({ id: 'main', data: this.data, updated_at: new Date().toISOString() });
+      if (error) {
+        console.warn('Aviso Supabase upsert:', error.message);
+      }
+    } catch (e) {
+      console.warn('Error sincronizando con Supabase:', e.message);
+    }
+  }
+
+  async uploadReceiptToSupabase(file, reservation) {
+    if (!supabase || !file) return;
+    try {
+      const fileBuffer = fs.readFileSync(file.path);
+      const storagePath = `${Date.now()}_${file.filename}`;
+      const { data, error } = await supabase.storage
+        .from('comprobantes')
+        .upload(storagePath, fileBuffer, {
+          contentType: file.mimetype,
+          upsert: true
+        });
+
+      if (!error) {
+        const { data: publicData } = supabase.storage
+          .from('comprobantes')
+          .getPublicUrl(storagePath);
+
+        if (publicData?.publicUrl) {
+          reservation.receiptUrl = publicData.publicUrl;
+          this.saveData();
+          console.log('📸 Comprobante subido a Supabase Storage:', reservation.receiptUrl);
+        }
+      } else {
+        console.warn('Aviso bucket comprobantes:', error.message);
+      }
+    } catch (e) {
+      console.warn('Error subiendo comprobante a Supabase:', e.message);
+    }
   }
 
   ensureDir() {
@@ -160,6 +245,8 @@ class Storage {
     } catch (e) {
       console.error('Error saving DB:', e);
     }
+    // Async cloud backup
+    this.syncToCloud();
   }
 
   cleanExpiredLocks() {
@@ -343,6 +430,11 @@ class Storage {
     seat.reservation = reservation;
 
     this.saveData();
+
+    if (receiptFile) {
+      this.uploadReceiptToSupabase(receiptFile, reservation);
+    }
+
     return reservation;
   }
 
