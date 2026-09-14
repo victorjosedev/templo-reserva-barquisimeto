@@ -5,17 +5,13 @@ import {
   CreditCard, 
   Copy, 
   Check, 
-  Upload, 
-  AlertTriangle, 
-  CheckCircle2, 
+  UploadSimple, 
+  CheckCircle, 
   FileText,
-  Trash2,
-  Lock,
-  ExternalLink,
-  ChevronRight,
-  ShieldCheck,
-  UserCheck
-} from 'lucide-react';
+  Trash, 
+  LockKey, 
+  Lightbulb 
+} from '@phosphor-icons/react';
 
 export default function SeatModal({
   seat,
@@ -170,23 +166,23 @@ export default function SeatModal({
       <div className="relative w-full max-w-xl bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden my-4 max-h-[94vh] flex flex-col">
         
         {/* Modal Header: Clearly Anchors the Chosen Seat */}
-        <div className="bg-[#0f294a] text-white p-4 sm:p-5 flex items-center justify-between border-b-4 border-amber-400 shrink-0">
+        <div className="bg-[#0E1E3A] text-white p-4 sm:p-5 flex items-center justify-between border-b border-[#1B2F52] shrink-0">
           <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 rounded-2xl bg-amber-400 text-[#0f294a] flex flex-col items-center justify-center font-black shadow-md shrink-0">
-              <span className="text-[8px] uppercase tracking-widest text-[#0f294a]/80 font-bold">PUESTO</span>
-              <span className="text-xl leading-none">{seat.label}</span>
+            <div className="w-12 h-12 rounded-2xl bg-white/10 text-white flex flex-col items-center justify-center font-bold border border-white/20 shrink-0">
+              <span className="text-[8px] uppercase tracking-widest text-slate-300 font-sans">PUESTO</span>
+              <span className="text-xl leading-none font-mono">{seat.label}</span>
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <span className="text-xs font-black uppercase tracking-wider text-amber-300">
-                  {seat.floor === 2 ? '🌟 2do Piso (Panorámico)' : '🚪 1er Piso'} • {seat.position || 'Asiento'}
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-300 font-sans">
+                  {seat.floor === 2 ? 'Planta Alta • 2do Piso' : 'Planta Baja • 1er Piso'} • {seat.position || 'Asiento'}
                 </span>
-                <span className="inline-flex items-center space-x-1 text-[10px] bg-purple-500/30 text-purple-200 px-2 py-0.5 rounded-full border border-purple-400/40">
-                  <Lock className="w-2.5 h-2.5" />
+                <span className="inline-flex items-center space-x-1 text-[10px] bg-[#7C4DFF]/30 text-purple-200 px-2 py-0.5 rounded-full border border-[#7C4DFF]/40">
+                  <LockKey size={12} weight="bold" />
                   <span>Apartado</span>
                 </span>
               </div>
-              <h3 className="text-base sm:text-lg font-black text-white leading-tight">
+              <h3 className="text-base sm:text-lg font-bold text-white leading-tight font-display">
                 Reportar Pago del Asiento N° {seat.label}
               </h3>
             </div>
@@ -194,30 +190,30 @@ export default function SeatModal({
 
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition shrink-0"
+            className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition shrink-0 cursor-pointer"
             title="Minimizar (el asiento sigue apartado)"
           >
-            <X className="w-4 h-4" />
+            <X size={16} weight="bold" />
           </button>
         </div>
 
         {/* Temporary Lock Notice with Adaptive Countdown Timer */}
         <div className={`px-4 py-2 flex items-center justify-between text-xs border-b transition-colors ${
           remainingSeconds > 600
-            ? 'bg-emerald-50/80 border-emerald-200 text-emerald-950'
+            ? 'bg-[#2E9E6D]/10 border-[#2E9E6D]/30 text-[#0E1E3A]'
             : remainingSeconds > 180
-            ? 'bg-amber-50/80 border-amber-200 text-amber-950'
+            ? 'bg-[#E8A23A]/10 border-[#E8A23A]/30 text-[#0E1E3A]'
             : 'bg-rose-50 border-rose-200 text-rose-950'
         }`}>
           <div className="flex items-center space-x-1.5 font-medium">
-            <Clock className={`w-3.5 h-3.5 ${remainingSeconds <= 180 ? 'text-rose-600 animate-pulse' : 'text-slate-600'}`} />
+            <Clock size={15} weight="bold" className={remainingSeconds <= 180 ? 'text-rose-600 animate-pulse' : 'text-[#6B7280]'} />
             <span>Tiempo reservado para este asiento:</span>
           </div>
-          <div className={`font-mono text-xs font-black px-2.5 py-0.5 rounded-md border ${
+          <div className={`font-mono text-xs font-bold px-2.5 py-0.5 rounded-md border ${
             remainingSeconds > 600
-              ? 'bg-emerald-100 text-emerald-950 border-emerald-300'
+              ? 'bg-[#2E9E6D]/20 text-[#2E9E6D] border-[#2E9E6D]/40'
               : remainingSeconds > 180
-              ? 'bg-amber-100 text-amber-950 border-amber-300'
+              ? 'bg-[#E8A23A]/20 text-[#E8A23A] border-[#E8A23A]/40'
               : 'bg-rose-100 text-rose-950 border-rose-300 animate-pulse-slow'
           }`}>
             {formatTime(remainingSeconds)}
@@ -323,25 +319,25 @@ export default function SeatModal({
             </div>
 
             {/* SECCIÓN 2: DATOS PARA EL PAGO MÓVIL */}
-            <div className="bg-gradient-to-br from-blue-950 to-[#0f294a] rounded-2xl p-4 text-white space-y-2.5 border border-amber-400/40">
+            <div className="bg-[#0E1E3A] rounded-2xl p-4 text-white space-y-2.5 border border-[#1B2F52]">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-black uppercase text-amber-300 tracking-wider flex items-center gap-1.5">
-                  <CreditCard className="w-3.5 h-3.5" />
+                <span className="text-xs font-bold uppercase text-slate-300 tracking-wider flex items-center gap-1.5 font-display">
+                  <CreditCard size={15} weight="bold" />
                   Paso 2: Datos para Pago Móvil
                 </span>
                 <button
                   type="button"
                   onClick={handleCopyPagoMovil}
-                  className="inline-flex items-center space-x-1 text-[11px] bg-amber-400 hover:bg-amber-300 text-[#0f294a] px-2.5 py-1 rounded-lg font-black transition shadow-xs"
+                  className="inline-flex items-center space-x-1 text-[11px] bg-white/10 hover:bg-white/20 text-white px-2.5 py-1 rounded-lg font-semibold transition border border-white/20 cursor-pointer"
                 >
                   {copied ? (
                     <>
-                      <Check className="w-3 h-3 text-emerald-800" />
+                      <Check size={13} weight="bold" className="text-emerald-400" />
                       <span>¡Copiado!</span>
                     </>
                   ) : (
                     <>
-                      <Copy className="w-3 h-3" />
+                      <Copy size={13} weight="bold" />
                       <span>Copiar Datos</span>
                     </>
                   )}
@@ -349,39 +345,40 @@ export default function SeatModal({
               </div>
 
               <div className="grid grid-cols-2 gap-2 text-xs font-medium">
-                <div className="bg-white/10 p-2 rounded-xl border border-white/10">
-                  <span className="text-[10px] text-blue-200 uppercase block">Banco</span>
+                <div className="bg-white/5 p-2 rounded-xl border border-white/10">
+                  <span className="text-[10px] text-slate-400 uppercase block">Banco</span>
                   <span className="font-bold text-white text-xs">{tripInfo?.pagoMovil?.bank || 'Banco Venezuela'}</span>
                 </div>
-                <div className="bg-white/10 p-2 rounded-xl border border-white/10">
-                  <span className="text-[10px] text-blue-200 uppercase block">Cédula</span>
+                <div className="bg-white/5 p-2 rounded-xl border border-white/10">
+                  <span className="text-[10px] text-slate-400 uppercase block">Cédula</span>
                   <span className="font-bold text-white text-xs font-mono">{tripInfo?.pagoMovil?.idNumber || 'V-18.452.981'}</span>
                 </div>
-                <div className="bg-white/10 p-2 rounded-xl border border-white/10">
-                  <span className="text-[10px] text-blue-200 uppercase block">Teléfono</span>
+                <div className="bg-white/5 p-2 rounded-xl border border-white/10">
+                  <span className="text-[10px] text-slate-400 uppercase block">Teléfono</span>
                   <span className="font-bold text-white text-xs font-mono">{tripInfo?.pagoMovil?.phone || '0414-5551234'}</span>
                 </div>
-                <div className="bg-white/10 p-2 rounded-xl border border-white/10">
-                  <span className="text-[10px] text-blue-200 uppercase block">Monto a Transferir</span>
-                  <span className="font-black text-amber-300 text-xs font-mono">
+                <div className="bg-white/5 p-2 rounded-xl border border-white/10">
+                  <span className="text-[10px] text-slate-400 uppercase block">Monto a Transferir</span>
+                  <span className="font-bold text-white text-xs font-mono">
                     ${tripInfo?.priceUsd} (Bs. {priceBs.toFixed(2)})
                   </span>
                 </div>
               </div>
 
-              <p className="text-[11px] text-blue-200 italic">
-                💡 Puede salir a su aplicación bancaria a transferir. Su asiento se mantiene protegido con el temporizador.
+              <p className="text-[11px] text-slate-300 italic flex items-center space-x-1.5">
+                <Lightbulb size={14} weight="bold" className="text-slate-300 shrink-0" />
+                <span>Puede salir a su aplicación bancaria a transferir. Su asiento se mantiene protegido con el temporizador.</span>
               </p>
             </div>
 
             {/* SECCIÓN 3: REPORTAR REFERENCIA Y COMPROBANTE */}
             <div className="space-y-3 pt-1">
-              <span className="text-xs font-black text-[#0f294a] uppercase tracking-wider block border-b border-slate-100 pb-1">
+              <span className="text-xs font-bold text-[#0E1E3A] uppercase tracking-wider block border-b border-[#E2E5EA] pb-1 font-display">
                 Paso 3: Reportar Comprobante
               </span>
 
               <div>
-                <label className="block text-[11px] font-bold text-slate-700 uppercase mb-1">
+                <label className="block text-[11px] font-bold text-[#0E1E3A] uppercase mb-1">
                   Número de Referencia del Pago Móvil *
                 </label>
                 <input
@@ -390,29 +387,29 @@ export default function SeatModal({
                   value={reference}
                   onChange={(e) => setReference(e.target.value)}
                   placeholder="Ej. 654321 (últimos 4 a 6 dígitos)"
-                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-800 focus:bg-white focus:ring-2 focus:ring-[#0f294a] transition font-mono font-bold"
+                  className="w-full bg-[#F7F8FA] border border-[#E2E5EA] rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-[#0E1E3A] focus:bg-white focus:ring-2 focus:ring-[#0E1E3A] transition font-mono font-bold"
                 />
               </div>
 
               {/* Upload Dropzone */}
               <div>
-                <label className="block text-[11px] font-bold text-slate-700 uppercase mb-1">
+                <label className="block text-[11px] font-bold text-[#0E1E3A] uppercase mb-1">
                   Foto o Captura del Comprobante (Opcional pero recomendada)
                 </label>
                 
                 {!receiptFile ? (
                   <div 
                     onClick={() => fileInputRef.current?.click()}
-                    className="border-2 border-dashed border-slate-300 hover:border-[#0f294a] bg-slate-50 hover:bg-blue-50/40 rounded-2xl p-3.5 text-center cursor-pointer transition flex items-center justify-center space-x-2.5 group"
+                    className="border-2 border-dashed border-[#E2E5EA] hover:border-[#0E1E3A] bg-[#F7F8FA] hover:bg-slate-100 rounded-2xl p-3.5 text-center cursor-pointer transition flex items-center justify-center space-x-2.5 group"
                   >
-                    <div className="w-8 h-8 rounded-full bg-blue-100 text-[#0f294a] flex items-center justify-center group-hover:scale-105 transition">
-                      <Upload className="w-4 h-4" />
+                    <div className="w-8 h-8 rounded-full bg-white text-[#0E1E3A] flex items-center justify-center group-hover:scale-105 transition shadow-xs">
+                      <UploadSimple size={16} weight="bold" />
                     </div>
                     <div className="text-left">
-                      <span className="text-xs font-bold text-slate-700 block">
+                      <span className="text-xs font-bold text-[#0E1E3A] block">
                         Toque aquí para adjuntar la foto del pago
                       </span>
-                      <span className="text-[10px] text-slate-400">
+                      <span className="text-[10px] text-[#6B7280]">
                         JPG, PNG, WEBP o PDF
                       </span>
                     </div>
@@ -428,14 +425,14 @@ export default function SeatModal({
                         />
                       ) : (
                         <div className="w-10 h-10 bg-blue-200 text-blue-800 rounded-lg flex items-center justify-center shrink-0">
-                          <FileText className="w-5 h-5" />
+                          <FileText size={18} weight="bold" />
                         </div>
                       )}
                       <div className="truncate">
                         <span className="text-xs font-bold text-slate-800 block truncate">
                           {receiptFile.name}
                         </span>
-                        <span className="text-[10px] text-slate-500">
+                        <span className="text-[10px] text-slate-500 font-mono">
                           {(receiptFile.size / 1024).toFixed(1)} KB listo
                         </span>
                       </div>
@@ -444,10 +441,10 @@ export default function SeatModal({
                     <button
                       type="button"
                       onClick={removeFile}
-                      className="p-1.5 text-rose-500 hover:bg-rose-100 rounded-lg transition"
+                      className="p-1.5 text-rose-500 hover:bg-rose-100 rounded-lg transition cursor-pointer"
                       title="Quitar foto"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash size={16} weight="bold" />
                     </button>
                   </div>
                 )}
@@ -463,7 +460,7 @@ export default function SeatModal({
 
               {/* Notes */}
               <div>
-                <label className="block text-[11px] font-bold text-slate-700 uppercase mb-1">
+                <label className="block text-[11px] font-bold text-[#0E1E3A] uppercase mb-1">
                   Observaciones adicionales (Opcional)
                 </label>
                 <input
@@ -471,23 +468,23 @@ export default function SeatModal({
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Ej. Viajo con un familiar en el asiento de al lado"
-                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-800 focus:bg-white focus:ring-2 focus:ring-[#0f294a] transition"
+                  className="w-full bg-[#F7F8FA] border border-[#E2E5EA] rounded-xl px-3 py-2 text-xs text-[#0E1E3A] focus:bg-white focus:ring-2 focus:ring-[#0E1E3A] transition"
                 />
               </div>
             </div>
 
-            {/* Actions */}
-            <div className="pt-3 border-t border-slate-200 space-y-2">
+            {/* Actions: Strict Gold-600 CTA */}
+            <div className="pt-3 border-t border-[#E2E5EA] space-y-2">
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full py-3 rounded-2xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-500 hover:to-amber-700 text-[#0f294a] font-black text-sm shadow-md transition transform active:scale-98 flex items-center justify-center space-x-2 cursor-pointer"
+                className="w-full py-3.5 rounded-2xl bg-[#C9962F] hover:bg-[#A97B22] text-white font-bold text-sm shadow-md transition transform active:scale-98 flex items-center justify-center space-x-2 cursor-pointer"
               >
                 {submitting ? (
                   <span>Enviando comprobante...</span>
                 ) : (
                   <>
-                    <CheckCircle2 className="w-4 h-4" />
+                    <CheckCircle size={18} weight="fill" />
                     <span>Confirmar y Enviar Reporte de Pago</span>
                   </>
                 )}
@@ -497,7 +494,7 @@ export default function SeatModal({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="text-blue-700 hover:text-blue-900 font-bold underline"
+                  className="text-[#3B6EA5] hover:underline font-bold"
                   title="Cierra esta ventana para ir a su banco. Su asiento sigue apartado."
                 >
                   Salir a transferir (mantener mi puesto apartado)
@@ -506,7 +503,7 @@ export default function SeatModal({
                 <button
                   type="button"
                   onClick={() => onReleaseSeat(seat.id)}
-                  className="text-rose-600 hover:text-rose-800 font-semibold text-[11px]"
+                  className="text-rose-600 hover:text-rose-800 font-semibold text-[11px] cursor-pointer"
                 >
                   Liberar puesto
                 </button>

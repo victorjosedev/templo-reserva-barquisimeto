@@ -347,8 +347,8 @@ export default function AdminDashboard({ onClose, onDataChanged }) {
                         className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-800 focus:bg-white focus:ring-2 focus:ring-[#0f294a] cursor-pointer"
                       >
                         <option value="ALL">Todos los Estados</option>
-                        <option value="apartado">🟡 Apartados (En espera de verificación)</option>
-                        <option value="confirmado">🔵 Confirmados (Aprobados)</option>
+                        <option value="apartado">En revisión (Pendientes por verificar)</option>
+                        <option value="confirmado">Confirmados (Aprobados)</option>
                       </select>
                     </div>
 

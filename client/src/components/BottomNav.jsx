@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bus, Search, CreditCard, ShieldCheck, CheckSquare } from 'lucide-react';
+import { Bus, MagnifyingGlass, ShieldCheck, Ticket } from '@phosphor-icons/react';
 
 export default function BottomNav({
   hasLockedSeat,
@@ -11,35 +11,35 @@ export default function BottomNav({
   onOpenAdmin
 }) {
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0f294a]/95 backdrop-blur-md border-t border-amber-500/30 shadow-[0_-4px_20px_rgba(0,0,0,0.3)] pb-safe">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0E1E3A]/95 backdrop-blur-md border-t border-[#1B2F52] shadow-[0_-4px_20px_rgba(0,0,0,0.3)] pb-safe">
       <div className="grid grid-cols-4 h-16">
         
         {/* Tab 1: Autobús / Asientos */}
         <button
           onClick={onSelectTab}
-          className="flex flex-col items-center justify-center space-y-1 text-white hover:text-amber-300 transition"
+          className="flex flex-col items-center justify-center space-y-1 text-slate-200 hover:text-white transition cursor-pointer"
         >
-          <div className="w-8 h-8 rounded-xl bg-amber-400/20 flex items-center justify-center text-amber-300">
-            <Bus className="w-4 h-4" />
+          <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center text-slate-200">
+            <Bus size={18} weight="bold" />
           </div>
           <span className="text-[10px] font-bold tracking-tight">Asientos</span>
         </button>
 
-        {/* Tab 2: Mi Reserva (Badge sobre el ícono si tiene asiento apartado) */}
+        {/* Tab 2: Mi Reserva (Gold reserved if user has active lock needing action) */}
         <button
           onClick={onReportPayment}
-          className={`flex flex-col items-center justify-center space-y-1 transition relative ${
-            hasLockedSeat ? 'text-amber-300' : 'text-blue-100 hover:text-amber-300'
+          className={`flex flex-col items-center justify-center space-y-1 transition relative cursor-pointer ${
+            hasLockedSeat ? 'text-[#C9962F]' : 'text-slate-200 hover:text-white'
           }`}
         >
           <div className="relative">
             <div className={`w-8 h-8 rounded-xl flex items-center justify-center transition-all ${
-              hasLockedSeat ? 'bg-amber-400 text-[#0f294a] shadow-[0_0_12px_rgba(245,158,11,0.5)]' : 'bg-white/10 text-blue-200'
+              hasLockedSeat ? 'bg-[#C9962F] text-white shadow-md' : 'bg-white/10 text-slate-200'
             }`}>
-              <CheckSquare className="w-4 h-4" />
+              <Ticket size={18} weight="bold" />
             </div>
             {hasLockedSeat && (
-              <span className="absolute -top-1.5 -right-2.5 bg-amber-400 text-[#0f294a] text-[9px] font-black px-1.5 py-0.5 rounded-full border-2 border-[#0f294a] shadow leading-none animate-pulse">
+              <span className="absolute -top-1.5 -right-2.5 bg-[#C9962F] text-white text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full border-2 border-[#0E1E3A] shadow leading-none animate-pulse">
                 {lockedSeatLabel}
               </span>
             )}
@@ -52,21 +52,21 @@ export default function BottomNav({
         {/* Tab 3: Consultar Mi Boleto */}
         <button
           onClick={onOpenLookup}
-          className="flex flex-col items-center justify-center space-y-1 text-blue-100 hover:text-amber-300 transition"
+          className="flex flex-col items-center justify-center space-y-1 text-slate-200 hover:text-white transition cursor-pointer"
         >
-          <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center text-blue-200">
-            <Search className="w-4 h-4" />
+          <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center text-slate-200">
+            <MagnifyingGlass size={18} weight="bold" />
           </div>
           <span className="text-[10px] font-bold tracking-tight">Mi Boleto</span>
         </button>
 
-        {/* Tab 4: Líderes / Admin */}
+        {/* Tab 4: Líderes / Admin (Dignified secondary navy/slate, no competing gold) */}
         <button
           onClick={onOpenAdmin}
-          className="flex flex-col items-center justify-center space-y-1 text-amber-300 hover:text-amber-200 transition"
+          className="flex flex-col items-center justify-center space-y-1 text-slate-300 hover:text-white transition cursor-pointer"
         >
-          <div className="w-8 h-8 rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-400">
-            <ShieldCheck className="w-4 h-4" />
+          <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center text-slate-300">
+            <ShieldCheck size={18} weight="bold" />
           </div>
           <span className="text-[10px] font-bold tracking-tight">Líderes</span>
         </button>

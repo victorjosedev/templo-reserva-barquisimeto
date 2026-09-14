@@ -19,7 +19,7 @@ import {
   reserveSeat, 
   getSessionId 
 } from './utils/api';
-import { Sparkles, HeartHandshake } from 'lucide-react';
+import { Handshake } from '@phosphor-icons/react';
 
 export default function App() {
   const sessionId = getSessionId();
@@ -200,8 +200,8 @@ export default function App() {
         {/* Bus Seat Map */}
         {loading ? (
           <div className="py-20 text-center space-y-3">
-            <div className="w-12 h-12 border-4 border-[#0f294a] border-t-amber-400 rounded-full animate-spin mx-auto"></div>
-            <p className="text-sm font-bold text-slate-600">Cargando autobús y asientos...</p>
+            <div className="w-12 h-12 border-4 border-[#0E1E3A] border-t-[#C9962F] rounded-full animate-spin mx-auto"></div>
+            <p className="text-sm font-bold text-[#0E1E3A]">Cargando autobús y asientos...</p>
           </div>
         ) : (
           <BusMap
@@ -218,15 +218,15 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-[#0f294a] text-white/80 border-t border-amber-500/20 py-8 px-4 text-center text-xs space-y-2 mb-16 md:mb-0">
-        <div className="flex items-center justify-center space-x-2 text-amber-300 font-bold uppercase tracking-wider text-[11px]">
-          <HeartHandshake className="w-4 h-4" />
+      <footer className="bg-[#0E1E3A] text-slate-300 border-t border-[#1B2F52] py-8 px-4 text-center text-xs space-y-2 mb-16 md:mb-0">
+        <div className="flex items-center justify-center space-x-2 text-slate-200 font-bold uppercase tracking-wider text-[11px] font-display">
+          <Handshake size={16} weight="bold" className="text-slate-300" />
           <span>Comité de Viaje al Templo • Estaca Barquisimeto</span>
         </div>
-        <p className="text-slate-400 max-w-lg mx-auto">
+        <p className="text-slate-400 max-w-lg mx-auto font-sans">
           Sistema de asignación de puestos para los 9 barrios de la estaca: Acarigua, Araure, Los Pinos, Cabudare, Sabana de Parra, Nueva Segovia, Concordia, San Felipe y La Concordia.
         </p>
-        <div className="pt-2 text-[10px] text-slate-500">
+        <div className="pt-2 text-[10px] text-slate-500 font-mono">
           © {new Date().getFullYear()} • Todos los derechos reservados.
         </div>
       </footer>

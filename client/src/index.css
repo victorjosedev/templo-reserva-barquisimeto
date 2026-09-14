@@ -1,18 +1,79 @@
 @import "tailwindcss";
 
+@theme {
+  --color-navy-900: #0E1E3A;
+  --color-navy-700: #1B2F52;
+  --color-gold-600: #C9962F;
+  --color-gold-700: #A97B22;
+
+  --color-status-free: #2E9E6D;
+  --color-status-review: #E8A23A;
+  --color-status-confirmed: #3B6EA5;
+  --color-status-selected: #7C4DFF;
+
+  --color-bg: #F7F8FA;
+  --color-surface: #FFFFFF;
+  --color-border: #E2E5EA;
+  --color-text-muted: #6B7280;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+:root {
+  /* Marca */
+  --color-navy-900: #0E1E3A;   /* fondo header, textos principales sobre blanco */
+  --color-navy-700: #1B2F52;   /* fondo de tarjetas oscuras (hero, mapa) */
+  --color-gold-600: #C9962F;   /* ÚNICO color de acción principal (CTA) */
+  --color-gold-700: #A97B22;   /* hover/active del CTA */
+
+  /* Estados de asiento */
+  --color-status-free: #2E9E6D;      /* verde: libre */
+  --color-status-review: #E8A23A;    /* ámbar: en revisión */
+  --color-status-confirmed: #3B6EA5; /* azul: confirmado */
+  --color-status-selected: #7C4DFF;  /* púrpura: tu asiento */
+
+  /* Neutros */
+  --color-bg: #F7F8FA;
+  --color-surface: #FFFFFF;
+  --color-border: #E2E5EA;
+  --color-text-muted: #6B7280;
+
+  /* Tipografía */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
 @layer base {
   body {
-    background-color: #f8fafc;
-    color: #0f172a;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-navy-900);
+    font-family: var(--font-body);
     margin: 0;
     padding: 0;
     min-height: 100vh;
   }
 
   h1, h2, h3, h4, .font-display {
-    font-family: 'Sora', system-ui, sans-serif;
+    font-family: var(--font-display);
   }
+
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+}
+
+/* Primary CTA Button utility with strict Gold-600 token */
+.btn-cta {
+  background-color: var(--color-gold-600);
+  color: #FFFFFF;
+  font-weight: 700;
+  transition: all 0.2s ease-in-out;
+}
+.btn-cta:hover {
+  background-color: var(--color-gold-700);
 }
 
 /* Authentic Boarding Pass Notches & Perforations */
@@ -26,7 +87,7 @@
   position: absolute;
   width: 20px;
   height: 20px;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(14, 30, 58, 0.75);
   border-radius: 50%;
   z-index: 10;
 }
@@ -57,7 +118,7 @@
     margin: 0;
     padding: 20px;
     box-shadow: none !important;
-    border: 2px solid #0f294a !important;
+    border: 2px solid #0E1E3A !important;
   }
 }
 

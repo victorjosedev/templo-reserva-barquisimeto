@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
 import { 
-  Users, 
+  Toilet, 
+  Stairs, 
+  Stack, 
+  SuitcaseRolling, 
+  Coffee, 
   Clock, 
-  CheckCircle2, 
-  AlertCircle, 
-  Filter, 
-  Layers, 
-  Sparkles,
-  Compass,
-  ArrowUpRight,
-  Luggage,
-  Coffee,
-  HelpCircle
-} from 'lucide-react';
+  CheckCircle, 
+  MapPin, 
+  SlidersHorizontal 
+} from '@phosphor-icons/react';
 
 // Distinct colors for the 9 wards
 export const WARD_COLORS = {
@@ -63,25 +60,26 @@ export default function BusMap({
     <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
       
       {/* Compact Controls: Floor Selector, Filter & Legend */}
-      <div id="bus-section" className="bg-white rounded-3xl shadow-sm border border-slate-200 p-3 sm:p-5 mb-5">
+      <div id="bus-section" className="bg-white rounded-3xl shadow-sm border border-[#E2E5EA] p-3 sm:p-5 mb-5">
         
         {/* Top Controls Row */}
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
           
-          {/* Floor Navigation Tabs (Front & Center!) */}
-          <div className="flex items-center space-x-2 bg-slate-100 p-1.5 rounded-2xl border border-slate-200">
+          {/* Floor Navigation Tabs (Clean Phosphor Icons, Zero Emojis) */}
+          <div className="flex items-center space-x-2 bg-slate-100 p-1.5 rounded-2xl border border-[#E2E5EA]">
             {/* 2do Piso */}
             <button
               onClick={() => setActiveFloor('2')}
               className={`flex-1 md:flex-initial flex items-center justify-center space-x-2 px-3.5 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-extrabold transition ${
                 activeFloor === '2'
-                  ? 'bg-[#0f294a] text-white shadow-md'
-                  : 'text-slate-700 hover:bg-white/60'
+                  ? 'bg-[#0E1E3A] text-white shadow-md'
+                  : 'text-[#0E1E3A] hover:bg-white/60'
               }`}
             >
-              <span>🌟 2do Piso</span>
+              <Stack size={18} weight="bold" />
+              <span>2do Piso</span>
               <span className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-bold ${
-                activeFloor === '2' ? 'bg-amber-400 text-[#0f294a]' : 'bg-slate-200 text-slate-700'
+                activeFloor === '2' ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-700'
               }`}>
                 {floor2Available} libres
               </span>
@@ -92,13 +90,14 @@ export default function BusMap({
               onClick={() => setActiveFloor('1')}
               className={`flex-1 md:flex-initial flex items-center justify-center space-x-2 px-3.5 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-extrabold transition ${
                 activeFloor === '1'
-                  ? 'bg-[#0f294a] text-white shadow-md'
-                  : 'text-slate-700 hover:bg-white/60'
+                  ? 'bg-[#0E1E3A] text-white shadow-md'
+                  : 'text-[#0E1E3A] hover:bg-white/60'
               }`}
             >
-              <span>🚪 1er Piso</span>
+              <Stack size={18} weight="bold" />
+              <span>1er Piso</span>
               <span className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-bold ${
-                activeFloor === '1' ? 'bg-amber-400 text-[#0f294a]' : 'bg-slate-200 text-slate-700'
+                activeFloor === '1' ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-700'
               }`}>
                 {floor1Available} libres
               </span>
@@ -109,8 +108,8 @@ export default function BusMap({
               onClick={() => setActiveFloor('both')}
               className={`hidden lg:flex items-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-extrabold transition ${
                 activeFloor === 'both'
-                  ? 'bg-[#0f294a] text-white shadow-md'
-                  : 'text-slate-700 hover:bg-white/60'
+                  ? 'bg-[#0E1E3A] text-white shadow-md'
+                  : 'text-[#0E1E3A] hover:bg-white/60'
               }`}
             >
               <span>Ambos Pisos</span>
@@ -121,13 +120,14 @@ export default function BusMap({
           <div className="flex flex-wrap items-center gap-2 justify-between md:justify-end">
             
             {/* Ward selector */}
-            <div className="flex items-center space-x-1.5">
+            <div className="flex items-center space-x-1.5 bg-slate-50 border border-[#E2E5EA] rounded-xl px-2.5 py-1">
+              <MapPin size={15} weight="bold" className="text-[#6B7280] shrink-0" />
               <select
                 value={selectedWardFilter}
                 onChange={(e) => setSelectedWardFilter(e.target.value)}
-                className="bg-slate-50 border border-slate-300 text-slate-800 text-xs font-bold rounded-xl py-2 px-2.5 cursor-pointer focus:ring-2 focus:ring-[#0f294a]"
+                className="bg-transparent border-none text-[#0E1E3A] text-xs font-bold py-1 px-1 cursor-pointer focus:outline-none"
               >
-                <option value="ALL">📍 Filtrar por Barrio (Todos)</option>
+                <option value="ALL">Filtrar por Barrio (Todos)</option>
                 {wards.map((ward) => (
                   <option key={ward} value={ward}>
                     {ward} ({getWardOccupiedCount(ward)})
@@ -138,7 +138,7 @@ export default function BusMap({
               {selectedWardFilter !== 'ALL' && (
                 <button
                   onClick={() => setSelectedWardFilter('ALL')}
-                  className="text-[10px] text-rose-600 font-extrabold underline"
+                  className="text-[10px] text-rose-600 font-extrabold underline shrink-0"
                 >
                   Quitar
                 </button>
@@ -152,8 +152,8 @@ export default function BusMap({
                 onClick={() => setViewMode('status')}
                 className={`px-3 py-1.5 rounded-lg text-xs font-black transition-all ${
                   viewMode === 'status'
-                    ? 'bg-[#0f294a] text-white shadow-sm'
-                    : 'text-slate-600 hover:text-slate-900'
+                    ? 'bg-[#0E1E3A] text-white shadow-sm'
+                    : 'text-[#6B7280] hover:text-[#0E1E3A]'
                 }`}
               >
                 Por Estado
@@ -163,8 +163,8 @@ export default function BusMap({
                 onClick={() => setViewMode('ward')}
                 className={`px-3 py-1.5 rounded-lg text-xs font-black transition-all ${
                   viewMode === 'ward'
-                    ? 'bg-[#0f294a] text-white shadow-sm'
-                    : 'text-slate-600 hover:text-slate-900'
+                    ? 'bg-[#0E1E3A] text-white shadow-sm'
+                    : 'text-[#6B7280] hover:text-[#0E1E3A]'
                 }`}
               >
                 Por Barrio
@@ -176,28 +176,28 @@ export default function BusMap({
         </div>
 
         {/* Compact Legend Strip */}
-        <div className="mt-2.5 pt-2.5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-600">
+        <div className="mt-2.5 pt-2.5 border-t border-[#E2E5EA] flex flex-wrap items-center justify-between gap-2 text-[11px] text-[#6B7280]">
           <div className="flex flex-wrap items-center gap-3">
-            <div className="flex items-center space-x-1">
-              <span className="w-3.5 h-3.5 rounded-md bg-emerald-500 inline-block"></span>
-              <span className="font-semibold text-slate-800">Verde: Libre</span>
+            <div className="flex items-center space-x-1.5">
+              <span className="w-3.5 h-3.5 rounded-md bg-[#2E9E6D] inline-block shadow-2xs"></span>
+              <span className="font-semibold text-[#0E1E3A]">Verde: Libre</span>
             </div>
-            <div className="flex items-center space-x-1">
-              <span className="w-3.5 h-3.5 rounded-md bg-amber-400 inline-block"></span>
-              <span className="font-medium text-slate-700">Ámbar: En revisión</span>
+            <div className="flex items-center space-x-1.5">
+              <span className="w-3.5 h-3.5 rounded-md bg-[#E8A23A] inline-block shadow-2xs"></span>
+              <span className="font-medium text-[#0E1E3A]">Ámbar: En revisión</span>
             </div>
-            <div className="flex items-center space-x-1">
-              <span className="w-3.5 h-3.5 rounded-md bg-[#0f294a] inline-block"></span>
-              <span className="font-medium text-slate-700">Azul: Confirmado</span>
+            <div className="flex items-center space-x-1.5">
+              <span className="w-3.5 h-3.5 rounded-md bg-[#3B6EA5] inline-block shadow-2xs"></span>
+              <span className="font-medium text-[#0E1E3A]">Azul: Confirmado</span>
             </div>
-            <div className="flex items-center space-x-1">
-              <span className="w-3.5 h-3.5 rounded-md bg-purple-600 inline-block"></span>
-              <span className="font-bold text-purple-800">Púrpura: Su selección</span>
+            <div className="flex items-center space-x-1.5">
+              <span className="w-3.5 h-3.5 rounded-md bg-[#7C4DFF] inline-block shadow-2xs"></span>
+              <span className="font-bold text-[#7C4DFF]">Púrpura: Tu selección</span>
             </div>
           </div>
 
-          <span className="text-[10px] text-slate-400 italic hidden sm:inline">
-            Bloqueo protegido de 35 minutos al tocar un asiento
+          <span className="text-[10px] text-[#6B7280] italic hidden sm:inline font-mono">
+            Bloqueo protegido de 35 min al tocar asiento
           </span>
         </div>
 
@@ -211,32 +211,32 @@ export default function BusMap({
           <div className="flex flex-col items-center">
             
             {/* Floor Title Pill */}
-            <div className="mb-3 px-5 py-2 bg-[#0f294a] text-white rounded-2xl shadow-md border-2 border-amber-400 text-center">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-amber-300 block">
+            <div className="mb-3 px-5 py-2.5 bg-[#0E1E3A] text-white rounded-2xl shadow-md border border-[#1B2F52] text-center">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-slate-300 block font-mono">
                 Planta Alta • Vista Panorámica
               </span>
-              <h4 className="text-lg font-black tracking-tight">2do Piso (Asientos 01 al 44)</h4>
+              <h4 className="text-lg font-bold tracking-tight font-display">2do Piso (Asientos 01 al 44)</h4>
             </div>
 
             {/* Bus Chassis Container */}
-            <div className="w-full max-w-md bg-white rounded-[40px] p-5 sm:p-7 shadow-2xl border-4 border-slate-300 relative">
+            <div className="w-full max-w-md bg-white rounded-[40px] p-5 sm:p-7 shadow-2xl border-4 border-[#E2E5EA] relative">
               
               {/* Front Windshield (Road View) */}
-              <div className="bg-gradient-to-b from-sky-950 via-slate-900 to-slate-800 rounded-3xl p-4 mb-5 text-white text-center relative shadow-inner border border-slate-700">
-                <div className="absolute top-2 left-6 right-6 h-2.5 bg-white/20 rounded-full blur-[1px]"></div>
-                <span className="text-[10px] font-black tracking-widest uppercase text-amber-300 block pt-1">
+              <div className="bg-gradient-to-b from-[#0E1E3A] via-[#1B2F52] to-[#0E1E3A] rounded-3xl p-4 mb-5 text-white text-center relative shadow-inner border border-slate-700">
+                <div className="absolute top-2 left-6 right-6 h-2 bg-white/20 rounded-full blur-[1px]"></div>
+                <span className="text-[10px] font-bold tracking-widest uppercase text-slate-200 block pt-1 font-display">
                   PARABRISAS DELANTERO • VISTA PANORÁMICA
                 </span>
                 <span className="text-[10px] text-slate-300">Frente del Autobús</span>
               </div>
 
-              {/* Column Labels: Perfectly aligned above seat columns without central PASILLO label */}
-              <div className="flex items-center justify-between gap-2 px-1 pb-2.5 mb-3 border-b-2 border-slate-200 text-[10px] font-black uppercase tracking-wider text-slate-400 select-none">
+              {/* Column Labels */}
+              <div className="flex items-center justify-between gap-2 px-1 pb-2.5 mb-3 border-b-2 border-[#E2E5EA] text-[10px] font-black uppercase tracking-wider text-[#6B7280] select-none">
                 <div className="flex space-x-2">
                   <span className="w-12 sm:w-14 text-center">Ventana</span>
                   <span className="w-12 sm:w-14 text-center">Pasillo</span>
                 </div>
-                <div className="w-4 sm:w-6 text-center text-slate-200 text-[10px] font-mono">
+                <div className="w-4 sm:w-6 text-center text-slate-300 text-[10px] font-mono">
                   •
                 </div>
                 <div className="flex space-x-2">
@@ -251,7 +251,7 @@ export default function BusMap({
               </div>
 
               {/* Rear of 2nd Floor */}
-              <div className="mt-6 pt-3 border-t-2 border-slate-200 text-center text-[10px] font-bold uppercase tracking-widest text-slate-400">
+              <div className="mt-6 pt-3 border-t-2 border-[#E2E5EA] text-center text-[10px] font-bold uppercase tracking-widest text-[#6B7280]">
                 Parte Trasera del 2do Piso
               </div>
 
@@ -264,50 +264,50 @@ export default function BusMap({
           <div className="flex flex-col items-center">
             
             {/* Floor Title Pill */}
-            <div className="mb-3 px-5 py-2 bg-[#0f294a] text-white rounded-2xl shadow-md border-2 border-amber-400 text-center">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-amber-300 block">
-                Planta Baja • Cerca del Baño y Salida
+            <div className="mb-3 px-5 py-2.5 bg-[#0E1E3A] text-white rounded-2xl shadow-md border border-[#1B2F52] text-center">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-slate-300 block font-mono">
+                Planta Baja • Cerca de Sanitarios y Salida
               </span>
-              <h4 className="text-lg font-black tracking-tight">1er Piso (Asientos 45 al 60)</h4>
+              <h4 className="text-lg font-bold tracking-tight font-display">1er Piso (Asientos 45 al 60)</h4>
             </div>
 
             {/* Bus Chassis Container */}
-            <div className="w-full max-w-md bg-white rounded-[40px] p-5 sm:p-7 shadow-2xl border-4 border-slate-300 relative">
+            <div className="w-full max-w-md bg-white rounded-[40px] p-5 sm:p-7 shadow-2xl border-4 border-[#E2E5EA] relative">
               
-              {/* Front Area: Baños & Escaleras (Minimalist Navy Chips) */}
+              {/* Front Area: Baños & Escaleras (Minimalist Navy Chips with Phosphor Icons) */}
               <div className="grid grid-cols-2 gap-3 mb-5">
                 
                 {/* Baño Chip */}
-                <div className="bg-[#0f294a] text-white border border-slate-700/50 rounded-2xl p-2.5 flex items-center space-x-2.5 shadow-xs select-none">
-                  <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center text-blue-200 shrink-0">
-                    <Layers className="w-3.5 h-3.5 text-blue-300" />
+                <div className="bg-[#0E1E3A] text-white border border-[#1B2F52] rounded-2xl p-2.5 flex items-center space-x-2.5 shadow-xs select-none">
+                  <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center text-blue-200 shrink-0">
+                    <Toilet size={20} weight="duotone" className="text-blue-300" />
                   </div>
                   <div className="flex flex-col text-left leading-tight">
                     <span className="text-[11px] font-bold text-white uppercase tracking-wider font-display">Sanitarios</span>
-                    <span className="text-[8px] text-blue-200">A bordo</span>
+                    <span className="text-[9px] text-blue-200">A bordo</span>
                   </div>
                 </div>
 
                 {/* Escalera Chip */}
-                <div className="bg-[#0f294a] text-white border border-slate-700/50 rounded-2xl p-2.5 flex items-center space-x-2.5 shadow-xs select-none">
-                  <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center text-blue-200 shrink-0">
-                    <ArrowUpRight className="w-3.5 h-3.5 text-amber-300" />
+                <div className="bg-[#0E1E3A] text-white border border-[#1B2F52] rounded-2xl p-2.5 flex items-center space-x-2.5 shadow-xs select-none">
+                  <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center text-blue-200 shrink-0">
+                    <Stairs size={20} weight="duotone" className="text-slate-200" />
                   </div>
                   <div className="flex flex-col text-left leading-tight">
                     <span className="text-[11px] font-bold text-white uppercase tracking-wider font-display">Escalera</span>
-                    <span className="text-[8px] text-blue-200">Al 2do Piso</span>
+                    <span className="text-[9px] text-blue-200">Al 2do Piso</span>
                   </div>
                 </div>
 
               </div>
 
               {/* Column Labels */}
-              <div className="flex items-center justify-between gap-2 px-1 pb-2.5 mb-3 border-b-2 border-slate-200 text-[10px] font-black uppercase tracking-wider text-slate-400 select-none">
+              <div className="flex items-center justify-between gap-2 px-1 pb-2.5 mb-3 border-b-2 border-[#E2E5EA] text-[10px] font-black uppercase tracking-wider text-[#6B7280] select-none">
                 <div className="flex space-x-2">
                   <span className="w-12 sm:w-14 text-center">Ventana</span>
                   <span className="w-12 sm:w-14 text-center">Pasillo</span>
                 </div>
-                <div className="w-4 sm:w-6 text-center text-slate-200 text-[10px] font-mono">
+                <div className="w-4 sm:w-6 text-center text-slate-300 text-[10px] font-mono">
                   •
                 </div>
                 <div className="flex space-x-2">
@@ -321,13 +321,13 @@ export default function BusMap({
                 {renderFloor1Rows()}
               </div>
 
-              {/* Large Luggage / Equipaje Compartment at the Bottom */}
-              <div className="mt-6 bg-slate-100 border-2 border-slate-300 rounded-3xl p-5 text-center flex flex-col items-center justify-center space-y-1 select-none">
-                <Luggage className="w-8 h-8 text-slate-600 mb-0.5" />
-                <span className="text-sm font-black uppercase text-slate-800 tracking-wider">
-                  EQUIPAJE / MALETERO
+              {/* Large Luggage / Equipaje Compartment at the Bottom with Phosphor SuitcaseRolling */}
+              <div className="mt-6 bg-[#F7F8FA] border-2 border-[#E2E5EA] rounded-3xl p-5 text-center flex flex-col items-center justify-center space-y-1 select-none">
+                <SuitcaseRolling size={28} weight="duotone" className="text-[#0E1E3A] mb-0.5" />
+                <span className="text-sm font-bold uppercase text-[#0E1E3A] tracking-wider font-display">
+                  Equipaje / Maletero
                 </span>
-                <span className="text-xs text-slate-500">
+                <span className="text-xs text-[#6B7280]">
                   Espacio amplio para maletas y bolsos de mano
                 </span>
               </div>
@@ -374,12 +374,12 @@ export default function BusMap({
           {renderSeat(s5)}
           {renderSeat(s6)}
         </div>
-        <div className="w-4 sm:w-6 text-center text-slate-200 text-[9px] font-mono select-none">·</div>
+        <div className="w-4 sm:w-6 text-center text-slate-300 text-[9px] font-mono select-none">·</div>
         {/* Escalera Chip 2do Piso */}
-        <div className="w-[104px] sm:w-[120px] h-14 sm:h-16 rounded-2xl bg-[#0f294a] border border-slate-700/50 text-white flex flex-col items-center justify-center p-1 relative select-none shadow-xs">
+        <div className="w-[104px] sm:w-[120px] h-14 sm:h-16 rounded-2xl bg-[#0E1E3A] border border-[#1B2F52] text-white flex flex-col items-center justify-center p-1 relative select-none shadow-xs">
           <div className="flex items-center space-x-1.5">
-            <ArrowUpRight className="w-3.5 h-3.5 text-amber-300" />
-            <span className="text-[10px] font-bold uppercase text-white font-display tracking-wider">Escalera</span>
+            <Stairs size={18} weight="duotone" className="text-slate-200" />
+            <span className="text-[11px] font-bold uppercase text-white font-display tracking-wider">Escalera</span>
           </div>
           <span className="text-[8px] text-blue-200 font-medium tracking-tight mt-0.5">Acceso 2do Piso</span>
         </div>
@@ -395,12 +395,12 @@ export default function BusMap({
           {renderSeat(s7)}
           {renderSeat(s8)}
         </div>
-        <div className="w-4 sm:w-6 text-center text-slate-200 text-[9px] font-mono select-none">·</div>
+        <div className="w-4 sm:w-6 text-center text-slate-300 text-[9px] font-mono select-none">·</div>
         {/* Escalera Chip 2do Piso */}
-        <div className="w-[104px] sm:w-[120px] h-14 sm:h-16 rounded-2xl bg-[#0f294a] border border-slate-700/50 text-white flex flex-col items-center justify-center p-1 relative select-none shadow-xs">
+        <div className="w-[104px] sm:w-[120px] h-14 sm:h-16 rounded-2xl bg-[#0E1E3A] border border-[#1B2F52] text-white flex flex-col items-center justify-center p-1 relative select-none shadow-xs">
           <div className="flex items-center space-x-1.5">
-            <ArrowUpRight className="w-3.5 h-3.5 text-amber-300" />
-            <span className="text-[10px] font-bold uppercase text-white font-display tracking-wider">Escalera</span>
+            <Stairs size={18} weight="duotone" className="text-slate-200" />
+            <span className="text-[11px] font-bold uppercase text-white font-display tracking-wider">Escalera</span>
           </div>
           <span className="text-[8px] text-blue-200 font-medium tracking-tight mt-0.5">Acceso 2do Piso</span>
         </div>
@@ -421,7 +421,7 @@ export default function BusMap({
             {renderSeat(vL)}
             {renderSeat(pL)}
           </div>
-          <div className="w-4 sm:w-6 text-center text-slate-200 text-[9px] font-mono select-none">·</div>
+          <div className="w-4 sm:w-6 text-center text-slate-300 text-[9px] font-mono select-none">·</div>
           <div className="flex space-x-2">
             {renderSeat(pR)}
             {renderSeat(vR)}
@@ -451,7 +451,7 @@ export default function BusMap({
             {renderSeat(vL)}
             {renderSeat(pL)}
           </div>
-          <div className="w-4 sm:w-6 text-center text-slate-200 text-[9px] font-mono select-none">·</div>
+          <div className="w-4 sm:w-6 text-center text-slate-300 text-[9px] font-mono select-none">·</div>
           <div className="flex space-x-2">
             {renderSeat(pR)}
             {renderSeat(vR)}
@@ -473,9 +473,9 @@ export default function BusMap({
           {renderSeat(s58)}
         </div>
         
-        <div className="px-1.5 py-1 bg-slate-100 text-slate-700 border border-slate-300 rounded-lg text-[9px] font-black uppercase flex items-center space-x-1 shrink-0 select-none">
-          <span>☕</span>
-          <span className="hidden sm:inline">Bar</span>
+        <div className="px-2 py-1 bg-slate-100 text-[#0E1E3A] border border-[#E2E5EA] rounded-lg text-[9px] font-bold uppercase flex items-center space-x-1 shrink-0 select-none">
+          <Coffee size={14} weight="duotone" className="text-[#0E1E3A]" />
+          <span className="hidden sm:inline font-sans">Cafetín</span>
         </div>
 
         <div className="flex space-x-2">
@@ -488,7 +488,7 @@ export default function BusMap({
     return rendered;
   }
 
-  // ===================== LUXURY SEAT BUTTON RENDERER =====================
+  // ===================== SEAT BUTTON RENDERER WITH BRAND TOKENS =====================
   function renderSeat(seat) {
     if (!seat) return <div className="w-12 sm:w-14 h-14 sm:h-16" />;
 
@@ -502,20 +502,23 @@ export default function BusMap({
     const isDimmed = selectedWardFilter !== 'ALL' && !matchesFilter;
     const wardColor = seat.ward ? WARD_COLORS[seat.ward] : null;
 
-    // Ultra-pro coach seat styling with full-border state coloring
+    // Design Tokens for seat states:
+    // --color-status-free: #2E9E6D (green)
+    // --color-status-review: #E8A23A (amber)
+    // --color-status-confirmed: #3B6EA5 (blue)
+    // --color-status-selected: #7C4DFF (purple)
     let seatClasses = "relative w-12 sm:w-14 h-14 sm:h-16 rounded-2xl flex flex-col items-center justify-between p-1.5 transition-all duration-200 transform cursor-pointer select-none font-sans font-bold shadow-xs active:scale-95 ";
 
     if (isSelected || isMyLock) {
-      seatClasses += "bg-purple-600 text-white border-[2.5px] border-purple-400 ring-4 ring-purple-300/70 ring-offset-1 scale-105 shadow-md z-20 animate-pulse";
+      seatClasses += "bg-[#7C4DFF] text-white border-[2.5px] border-[#7C4DFF] ring-4 ring-[#7C4DFF]/40 ring-offset-1 scale-105 shadow-md z-20 animate-pulse";
     } else if (viewMode === 'ward' && seat.ward && wardColor) {
       seatClasses += `${wardColor.bg} text-white border-[2.5px] ${wardColor.border} hover:scale-105`;
     } else if (isConfirmed) {
-      seatClasses += "bg-[#0f294a] text-blue-100 border-[2.5px] border-[#0f294a] shadow-xs hover:scale-105";
+      seatClasses += "bg-[#3B6EA5] text-white border-[2.5px] border-[#3B6EA5] shadow-xs hover:scale-105";
     } else if (isPending) {
-      seatClasses += "bg-amber-50 text-amber-950 border-[2.5px] border-amber-500 hover:bg-amber-100 hover:border-amber-600 hover:scale-105 shadow-xs";
+      seatClasses += "bg-[#E8A23A]/15 text-[#0E1E3A] border-[2.5px] border-[#E8A23A] hover:bg-[#E8A23A]/25 hover:scale-105 shadow-xs";
     } else {
-      // Emerald available with high-contrast full-card border
-      seatClasses += "bg-emerald-50 text-emerald-950 border-[2.5px] border-emerald-500 hover:bg-emerald-100 hover:border-emerald-600 hover:scale-105 shadow-xs";
+      seatClasses += "bg-[#2E9E6D]/15 text-[#0E1E3A] border-[2.5px] border-[#2E9E6D] hover:bg-[#2E9E6D]/25 hover:scale-105 shadow-xs";
     }
 
     if (isDimmed) {
@@ -530,11 +533,11 @@ export default function BusMap({
         title={`Asiento ${seat.label} (${seat.position || 'Asiento'}) - ${seat.status.toUpperCase()} ${seat.ward ? `[${seat.ward}]` : ''}`}
       >
         {/* Seat Headrest / Cabecera con relieve */}
-        <div className="w-8 sm:w-9 h-1.5 rounded-t-md bg-current opacity-30 shadow-xs"></div>
+        <div className="w-8 sm:w-9 h-1.5 rounded-t-md bg-current opacity-30 shadow-2xs"></div>
 
-        {/* Seat Number in Sora Font Display */}
+        {/* Seat Number in JetBrains Mono */}
         <div className="flex flex-col items-center leading-none">
-          <span className="text-sm sm:text-base font-extrabold tracking-tight font-display">{seat.label}</span>
+          <span className="text-sm sm:text-base font-extrabold tracking-tight font-mono">{seat.label}</span>
           <span className="text-[8px] uppercase tracking-wider font-bold opacity-75">
             {seat.position === 'Ventana' ? 'VENT' : 'PASI'}
           </span>
@@ -543,21 +546,21 @@ export default function BusMap({
         {/* Status Indicator Icon or Dot */}
         <div className="w-full flex items-center justify-center">
           {isMyLock ? (
-            <span className="text-[8px] font-black bg-white text-purple-950 px-1 rounded-sm">
+            <span className="text-[8px] font-black bg-white text-[#7C4DFF] px-1 rounded-sm font-mono">
               TUYO
             </span>
           ) : isConfirmed ? (
-            <CheckCircle2 className="w-3.5 h-3.5 text-amber-400" />
+            <CheckCircle size={15} weight="fill" className="text-white" />
           ) : isPending ? (
             seat.remainingSeconds > 0 ? (
-              <span className="text-[8px] font-mono font-black text-amber-950">
+              <span className="text-[8px] font-mono font-black text-[#0E1E3A]">
                 {formatTimer(seat.remainingSeconds)}
               </span>
             ) : (
-              <Clock className="w-3 h-3 text-amber-800" />
+              <Clock size={13} weight="bold" className="text-[#E8A23A]" />
             )
           ) : (
-            <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span className="w-2 h-2 rounded-full bg-[#2E9E6D]"></span>
           )}
         </div>
 
